@@ -6,6 +6,7 @@ import org.openqa.selenium.Keys;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
@@ -48,6 +49,17 @@ class CardDeliveryOrderTestMode {
         $(button).click();
         $(withText("Успешно!")).shouldBe(Condition.visible);
         //$("[class='notification__content']").waitUntil(Condition.visible, 25000).shouldHave(text("Встреча успешно запланирована на "));
+        // Проверка заполнения форм и перепланирования даты
+        open(serviceUrl);
+        $(cityInput).setValue(Generator.getCity());
+        datePicker();
+        defaultName();
+        defaultPhone();
+        $(agreement).click();
+        $(button).click();
+        $("[data-test-id=replan-notification]").waitUntil(Condition.visible, 3000);
+        $$("[class=button__text]").find(exactText("Перепланировать")).click();
+        $(withText("Успешно!")).waitUntil(Condition.visible, 3000);
     }
 
     @Test
