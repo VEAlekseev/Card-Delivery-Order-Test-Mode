@@ -14,10 +14,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 class CardDeliveryOrderTestMode {
     private static String serviceUrl = "http://localhost:9999";
-    private static String cityInput = "[data-test-id='city'] input.input__control";
-    private static String nameInput = "[data-test-id='name'] input.input__control";
-    private static String dateInput = "[data-test-id='date'] input.input__control";
-    private static String phoneInput = "[data-test-id='phone'] input.input__control";
+    private static String cityInput = "[data-test-id='city'] input";
+    private static String nameInput = "[data-test-id='name'] input";
+    private static String dateInput = "[data-test-id='date'] input";
+    private static String phoneInput = "[data-test-id='phone'] input";
     private static String agreement = "[data-test-id=agreement]";
     private static String button = ".button";
     private static String invalid = ".input_invalid .input__sub";
@@ -47,8 +47,6 @@ class CardDeliveryOrderTestMode {
         defaultPhone();
         $(agreement).click();
         $(button).click();
-        $(withText("Успешно!")).shouldBe(Condition.visible);
-        //$("[class='notification__content']").waitUntil(Condition.visible, 25000).shouldHave(text("Встреча успешно запланирована на "));
         // Проверка заполнения форм и перепланирования даты
         open(serviceUrl);
         $(cityInput).setValue(Generator.getCity());
@@ -112,9 +110,6 @@ class CardDeliveryOrderTestMode {
         defaultPhone();
         $(agreement).click();
         $(button).click();
-        //$(invalid).shouldHave(text("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
-        //$("[class='notification__content']").waitUntil(Condition.visible, 25000)
-        // .shouldHave(text("Встреча успешно забронирована на "));
         $(withText("Успешно!")).shouldBe(Condition.visible);
     }
 

@@ -6,6 +6,10 @@ import java.util.Locale;
 
 public class Generator {
 
+
+    private Generator() {
+    }
+
     private static Faker faker = new Faker(new Locale("ru"));
     private static String name = faker.name().fullName();
     private static String city = faker.address().cityName();
